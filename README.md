@@ -30,18 +30,33 @@ cd /Users/krish/Desktop/Coding/AdhyyanEscapeRoom
 npm install
 ```
 
-3. Set up the database:
+3. Set up environment variables:
+Create a `.env.local` file with your PostgreSQL connection:
 ```bash
-npm run db:push
-npm run db:seed
+# For local development with PostgreSQL
+DATABASE_URL="postgresql://username:password@localhost:5432/nextjs_service"
+
+# Or for local development with SQLite (simpler)
+# DATABASE_URL="file:./dev.db"
 ```
 
-4. Start the development server:
+4. Set up the database:
+```bash
+# For PostgreSQL
+npx prisma migrate dev --name init
+npm run db:seed
+
+# Or for SQLite (if using SQLite locally)
+# npm run db:push
+# npm run db:seed
+```
+
+5. Start the development server:
 ```bash
 npm run dev
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## API Endpoints
 

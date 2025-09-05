@@ -9,8 +9,14 @@ npm install
 # Generate Prisma client
 npx prisma generate
 
-# Push database schema (creates tables if they don't exist)
-npx prisma db push
+# Check if migrations exist, if not use db push for initial setup
+if [ -d "prisma/migrations" ] && [ "$(ls -A prisma/migrations)" ]; then
+    echo "Running migrations..."
+    npx prisma migrate deploy
+else
+    echo "No migrations found, using db push..."
+    npx prisma db push --accept-data-loss
+fi
 
 # Seed database with initial data (only if empty)
 npm run db:seed || echo "Database already seeded or seed failed"
